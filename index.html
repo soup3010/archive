@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ee">
+  <title>アーカイブサイト</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f0e7;
+      --ink: #202a3d;
+      --muted: #77756f;
+      --line: #d7d0c4;
+      --accent: #26395d;
+      --clay: #e36a4c;
+      --gold: #e7b94d;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      background-image: radial-gradient(#26395d14 .8px, transparent .8px);
+      background-size: 9px 9px;
+      color: var(--ink);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.65;
+    }
+    .page { width: min(1440px, 100%); margin: 0 auto; padding: 0 clamp(20px, 5.4vw, 84px) 64px; }
+    header { position: relative; overflow: hidden; margin-top: 24px; padding: clamp(32px, 5vw, 68px) clamp(22px, 4vw, 58px) 36px; border: 1px solid #ffffff30; border-radius: 5px 28px 5px 5px; background: var(--accent); color: #fff9ed; box-shadow: 8px 9px 0 #e36a4c; }
+    header::before { position: absolute; top: -95px; right: -54px; width: clamp(210px, 31vw, 390px); aspect-ratio: 1; border: 1px solid #fff7e44a; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 17px, #fff7e423 18px 19px); content: ""; transform: rotate(-18deg); }
+    header::after { position: absolute; right: 26px; bottom: 23px; width: 13px; height: 13px; border: 3px solid var(--gold); border-radius: 50%; content: ""; }
+    .eyebrow { position: relative; display: inline-block; margin: 0 0 17px; padding: 5px 10px; border-radius: 2px; background: var(--gold); color: #342d24; font-size: .68rem; font-weight: 800; letter-spacing: .17em; transform: rotate(-1.5deg); }
+    h1 { position: relative; margin: 0; font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; font-size: clamp(2.1rem, 5.2vw, 4.1rem); font-weight: 500; letter-spacing: .12em; line-height: 1.2; }
+    .topic { position: relative; max-width: 780px; margin: 25px 0 0; padding: 10px 14px; border-left: 3px solid var(--clay); background: #ffffff12; color: #fff9ed; font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; font-size: clamp(1.08rem, 2vw, 1.45rem); font-weight: 500; line-height: 1.65; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 38px 0 20px; }
+    .section-head h2 { margin: 0; color: var(--accent); font-size: .82rem; font-weight: 800; letter-spacing: .16em; }
+    .count { color: var(--muted); font-size: .82rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(26px, 4.2vw, 58px) clamp(18px, 2.8vw, 38px); }
+    .card { position: relative; min-width: 0; padding: 10px 10px 0; border: 1px solid #d7d0c4; border-radius: 3px; background: #fffdf7; box-shadow: 5px 7px 0 #26395d18, 0 13px 28px #463a2410; transition: transform .3s ease, box-shadow .3s ease; }
+    .card:nth-child(odd) { transform: rotate(-.7deg); }
+    .card:nth-child(even) { transform: rotate(.8deg); }
+    .card:nth-child(3) { transform: rotate(.45deg); }
+    .card:nth-child(4) { transform: rotate(-.9deg); }
+    .card:hover { z-index: 1; transform: translateY(-5px) rotate(0); box-shadow: 6px 11px 0 #26395d20, 0 19px 32px #463a2418; }
+    .image-wrap { position: relative; overflow: hidden; background: #e6e0d3; aspect-ratio: 4 / 3; }
+    .card:nth-child(3) .image-wrap, .card:nth-child(4) .image-wrap { aspect-ratio: 3 / 4; }
+    .card:nth-child(5) .image-wrap { aspect-ratio: 16 / 9; }
+    .card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
+    .card:hover img { transform: scale(1.025); }
+    .card-info { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 13px 5px 10px; }
+    .card h3 { margin: 0 0 7px; color: var(--accent); font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .06em; }
+    .words { margin: 0 0 3px; color: var(--muted); font-size: .84rem; }
+    .number { flex: 0 0 auto; display: grid; width: 34px; height: 34px; place-items: center; margin-top: 2px; border-radius: 50%; background: var(--clay); color: #fffaf0; font-family: Georgia, serif; font-size: .84rem; font-style: italic; font-variant-numeric: tabular-nums; box-shadow: 2px 2px 0 #e7b94d; }
+    footer { margin-top: 56px; padding: 17px 0 0; border-top: 1px dashed var(--line); color: var(--muted); font-size: .78rem; letter-spacing: .12em; }
+    @media (max-width: 640px) {
+      .page { padding-right: 16px; padding-left: 16px; padding-bottom: 40px; }
+      header { margin-top: 14px; padding: 32px 20px 27px; border-top-right-radius: 22px; box-shadow: 5px 6px 0 #e36a4c; }
+      header::before { top: -55px; right: -88px; width: 210px; }
+      header::after { right: 16px; bottom: 14px; }
+      .topic { margin-top: 18px; }
+      .section-head { margin-top: 26px; }
+      .grid { grid-template-columns: 1fr; gap: 22px; }
+      .card { padding: 8px 8px 0; }
+      .card:nth-child(n) { transform: none; }
+      .card:hover { transform: translateY(-2px); }
+      .card:nth-child(3) .image-wrap, .card:nth-child(4) .image-wrap { aspect-ratio: 4 / 5; }
+      .card:nth-child(5) .image-wrap { aspect-ratio: 4 / 3; }
+      footer { margin-top: 38px; }
+    }
+    @media (hover: none) { .card:hover img { transform: none; } .card:hover { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">COLLECTED MATERIALS</p>
+      <h1>アーカイブサイト</h1>
+      <p class="topic">京都に観光客が多いのはなぜなのか</p>
+    </header>
+
+    <section aria-labelledby="archive-heading">
+      <div class="section-head">
+        <h2 id="archive-heading">写真アーカイブ</h2>
+        <span class="count" id="item-count"></span>
+      </div>
+      <div class="grid" id="archive-grid">
+        <article class="card"><div class="image-wrap"><img src="images/01.jpg" alt="ラーメンの写真" loading="lazy"></div><div class="card-info"><div><h3>ラーメン</h3><p class="words">(ここに言葉)</p></div><span class="number">01</span></div></article>
+        <article class="card"><div class="image-wrap"><img src="images/02.jpg" alt="オムライスの写真" loading="lazy"></div><div class="card-info"><div><h3>オムライス</h3><p class="words">(ここに言葉)</p></div><span class="number">02</span></div></article>
+        <article class="card"><div class="image-wrap"><img src="images/03.jpg" alt="夕焼けの写真" loading="lazy"></div><div class="card-info"><div><h3>夕焼け</h3><p class="words">(ここに言葉)</p></div><span class="number">03</span></div></article>
+        <article class="card"><div class="image-wrap"><img src="images/04.jpg" alt="金魚の写真" loading="lazy"></div><div class="card-info"><div><h3>金魚</h3><p class="words">(ここに言葉)</p></div><span class="number">04</span></div></article>
+        <article class="card"><div class="image-wrap"><img src="images/05.jpg" alt="猫の写真" loading="lazy"></div><div class="card-info"><div><h3>猫</h3><p class="words">(ここに言葉)</p></div><span class="number">05</span></div></article>
+      </div>
+    </section>
+    <footer>アーカイブサイト</footer>
+  </main>
+  <script>
+    const cards = document.querySelectorAll(".card");
+    document.getElementById("item-count").textContent = `${String(cards.length).padStart(2, "0")} 件`;
+  </script>
+</body>
+</html>
